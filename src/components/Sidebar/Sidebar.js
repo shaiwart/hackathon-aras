@@ -124,15 +124,15 @@ const Sidebar = () => {
               <span class="navlink_icon">
                 <i class="bx bx-grid-alt"></i>
               </span>
-              <span class="navlink">Overview</span>
+              <span class="navlink">Favourite Item</span>
               <i class="bx bx-chevron-right arrow-left"></i>
             </div>
 
             <ul class="menu_items submenu">
-              <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              <a href="#" class="nav_link sublink">Nav Sub Link</a>
+              <a href="#" class="nav_link sublink">Part</a>
+              <a href="#" class="nav_link sublink">Document</a>
+              <a href="#" class="nav_link sublink">CAD Docs</a>
+              <a href="#" class="nav_link sublink">Reports</a>
             </ul>
           </li>
 
