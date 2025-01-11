@@ -1,13 +1,38 @@
-.layout {
-    display: flex;
-    height: 100vh;
-  }
-  .layout-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  .layout-main {
-    flex: 1;
-    padding: 20px;
-  }
+/* .layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  margin-top: 80px;
+} */
+
+/* experimental */
+/* .content {
+  display: flex;
+  flex: 1;
+  margin-top: 80px;
+  transition: all 0.2s ease;
+}
+
+.content-main {
+  flex-grow: 1;
+  padding: 20px;
+  transition: margin-left 0.2s ease, width 0.2s ease;
+}
+
+.sidebar {
+  width: 260px;
+  transition: width 0.3s ease;
+}
+
+.sidebar.close {
+  width: 80px;
+} */
+
+
+
+
