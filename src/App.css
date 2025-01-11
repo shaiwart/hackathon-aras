@@ -288,3 +288,42 @@ body.dark {
     left: -100%;
   }
 }
+
+/* Card */
+/* .card {
+  background-color: var(--white-color);
+  border: 1px solid var(--grey-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+} */
+.card {
+  background-color: var(--white-color);
+  border: 1px solid var(--grey-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+/* Card Hover Effect */
+.card:hover {
+  transform: translateY(-10px); /* Move the card up slightly */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow intensity */
+}
+
+.card-title {
+  font-size: 1.5em;
+  color: var(--blue-color);
+  margin-bottom: 10px;
+}
+
+.card-field {
+  font-size: 1em;
+  margin: 5px 0;
+}
