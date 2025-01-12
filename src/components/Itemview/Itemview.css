@@ -1,0 +1,122 @@
+.itemview-container {
+  display: flex;
+  flex-direction: column;
+}
+.itemview-header {
+  box-shadow: 0 0 2px var(--grey-color-light);
+  margin-bottom: 10px;
+  height: 70px;
+}
+
+.itemview-content {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.itemview-content-left {
+  width: 80%;
+  box-shadow: 0 0 2px var(--grey-color-light);
+  height: 720px;
+  padding-top: 10px;
+}
+.itemview-content-right {
+  width: 20%;
+  box-shadow: 0 0 2px var(--grey-color-light);
+  height: 500px;
+}
+
+/* start: Form css */
+form {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Default: 4 columns */
+  gap: 20px; /* Space between grid items */
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-item-large {
+  grid-column: span 2; /* Default span for larger items */
+}
+
+.grid-item-extra-large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* Input and Textarea Styling */
+input,
+textarea {
+  padding: 8px;
+  box-sizing: border-box;
+  width: 100%; /* Full width of the parent grid item */
+  background-color: #e9ecef;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none; /* Prevent textarea manual resize */
+  font-size: 15px; /* Default font size */
+  overflow: hidden; /* Prevent overflow issues */
+}
+
+/* Textarea Specific Styling */
+textarea {
+  min-height: 40px; /* Minimum height for textarea */
+  height: auto; /* Allow auto-sizing based on content */
+  overflow-wrap: break-word; /* Handle long words */
+  white-space: pre-wrap; /* Preserve line breaks and whitespace */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+  }
+  .grid-item-large {
+    grid-column: span 2; /* Adjust large items for medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+  }
+  .grid-item-large,
+  .grid-item-extra-large {
+    grid-column: span 2; /* Ensure large items span the full width */
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    grid-template-columns: 1fr; /* 1 column on very small screens */
+  }
+  .grid-item-large,
+  .grid-item-extra-large {
+    grid-column: span 1; /* Large items span the full width */
+    grid-row: auto; /* Reset row span for small screens */
+  }
+}
+
+/* Input and Textarea Shrinking Behavior */
+input,
+textarea {
+  max-width: 100%; /* Ensure they don't overflow their container */
+  min-width: 0; /* Allow shrinking */
+  height: auto; /* Adjust height to fit content */
+  overflow: auto; /* Handle overflow for long content */
+  word-wrap: break-word; /* Break long words to fit content */
+}
+/* end: Form css */
+
