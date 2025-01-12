@@ -5,9 +5,12 @@ import DynamicTable from "../../components/DynamicTable/DynamicTable";
 import "./SearchResultLayout.css";
 import gridIcon from "../../assets/icons/grid_icon.png";
 import tableIcon from "../../assets/icons/table_icon_2.png";
+import { useLocation } from "react-router-dom";
 
 const SearchResultLayout = () => {
     const [view, setView] = useState("table");
+    const location = useLocation();
+    const partData = location.state?.partData || [];
 
     const handleViewChange = (selectedView) => {
         setView(selectedView);
@@ -30,7 +33,7 @@ const SearchResultLayout = () => {
                 </div>
             </div>
             <div>
-                {view === "table" ? <DynamicTable /> : <SearchResultInCard />}
+                {view === "table" ? <DynamicTable data={partData} /> : <SearchResultInCard data={partData} />}
             </div>
         </div>
     );

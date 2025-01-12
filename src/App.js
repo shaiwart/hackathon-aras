@@ -20,6 +20,7 @@ function App() {
         
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="search-result" element={<SearchResultLayout />} />
         </Route>
       </Routes>

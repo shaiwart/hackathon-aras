@@ -1,8 +1,55 @@
 // Sidebar.js
 import React, { useEffect } from "react";
 import "./Sidebar.css";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const navigateDashboard = useNavigate();
+  const apikey = 'APIKEY_SW5ub3ZhdG9yU29sdXRpb25zMzMub0tCZlJGR3B0QTVVdzU2UXdySmRjSTZNQU9CWDFEQ1Q';
+
+  const handleSidebarMenuClick = async (event) => {
+    event.preventDefault();
+
+    // Get the text content of the clicked element
+    const itemTypeName = event.target.textContent; // or event.target.innerText
+    if(itemTypeName === 'Dashboard') {
+      navigate("/");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost/InnovatorServer33/Server/ws/docshare/v1/${itemTypeName}`,
+        {
+          method: "GET", // or "POST", "PUT", etc., depending on your API's requirements
+          headers: {
+            "Authorization": `apikey ${apikey}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      let data = await response.json();
+      console.log("data", data);
+      data = data.value;
+
+      // Navigate to SearchResultLayout with the data
+      navigate("/search-result", { state: { partData: data } });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+
+  const handleClickDashboard = () => {
+    navigateDashboard('/');
+  }
+
+  // 
   useEffect(() => {
     const sidebar = document.querySelector(".sidebar");
     const submenuItems = document.querySelectorAll(".submenu_item");
@@ -68,9 +115,6 @@ const Sidebar = () => {
     };
   }, []);
 
-
-
-
   // to adjust content-main according to sidebar width
   useEffect(() => {
     const sidebar = document.querySelector(".sidebar");
@@ -100,7 +144,7 @@ const Sidebar = () => {
     <nav class="sidebar">
       <div class="menu_content">
         <ul class="menu_items">
-          <div class="menu_title menu_dahsboard"></div>
+          <div class="menu_title menu_frequently_used"></div>
 
           <li class="item">
             <div href="#" class="nav_link submenu_item">
@@ -110,12 +154,11 @@ const Sidebar = () => {
               <span class="navlink">Home</span>
               <i class="bx bx-chevron-right arrow-left"></i>
             </div>
-
             <ul class="menu_items submenu">
-              <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              <a href="#" class="nav_link sublink">Nav Sub Link</a>
-              <a href="#" class="nav_link sublink">Nav Sub Link</a>
+              <a href="#" class="nav_link sublink" onClick={handleClickDashboard}>Dashboard</a>
+              <a href="#" class="nav_link sublink">Configuration</a>
+              {/* <a href="#" class="nav_link sublink">Nav Sub Link</a>
+              <a href="#" class="nav_link sublink">Nav Sub Link</a> */}
             </ul>
           </li>
 
@@ -129,8 +172,9 @@ const Sidebar = () => {
             </div>
 
             <ul class="menu_items submenu">
-              <a href="#" class="nav_link sublink">Part</a>
-              <a href="#" class="nav_link sublink">Document</a>
+              <a href="#" class="nav_link sublink" onClick={handleSidebarMenuClick}>ItemType</a>
+              <a href="#" class="nav_link sublink" onClick={handleSidebarMenuClick}>Part</a>
+              <a href="#" class="nav_link sublink" onClick={handleSidebarMenuClick}>Document</a>
               <a href="#" class="nav_link sublink">CAD Docs</a>
               <a href="#" class="nav_link sublink">Reports</a>
             </ul>

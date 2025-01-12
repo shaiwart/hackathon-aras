@@ -2,13 +2,12 @@
 import React from "react"
 // import profileImg from '../../images/profile.jpg'
 import ItemCard from "../../components/ItemCard/ItemCard"
-import itemData from "../../data/partItemData"
 
 
-const SearchResultInCard = () => {
+const SearchResultInCard = ({ data }) => {
     return <div class="search-result">
         <div className="grid">
-            {itemData.map((item, index) => {
+            {data.map((item, index) => {
                 const cardTitle = `${item.item_number}`;
                 const cardFields = [
                     { label: 'Keyed Name', value: item.keyed_name },

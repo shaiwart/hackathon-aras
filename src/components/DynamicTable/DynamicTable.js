@@ -1,8 +1,8 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-import partItemData from '../../data/partItemData'; // make sure to import your data correctly
+// import partItemData from '../../data/partItemData'; // make sure to import your data correctly
 
-function DynamicTable() {
+function DynamicTable({ data }) {
   return (
     <Table striped bordered hover>
       <thead>
@@ -19,7 +19,7 @@ function DynamicTable() {
         </tr>
       </thead>
       <tbody>
-        {partItemData.map((item, index) => (
+        {data.map((item, index) => (
           <tr key={item.id}>
             <td>{index + 1}</td>
             <td>{item.item_number}</td>

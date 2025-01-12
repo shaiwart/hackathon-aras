@@ -83,6 +83,7 @@ body.dark {
   -webkit-background-clip: text; /* Use the background to clip the text */
   -webkit-text-fill-color: transparent; /* Make the text fill transparent */
   font-size: larger;
+  cursor: pointer;
 }
 
 
@@ -155,8 +156,8 @@ body.dark {
   color: var(--grey-color);
   white-space: nowrap;
 }
-.menu_dahsboard::before {
-  content: "Dashboard";
+.menu_frequently_used::before {
+  content: "Frequently Used";
 }
 .menu_editor::before {
   content: "Editor";
