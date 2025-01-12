@@ -75,7 +75,17 @@ body.dark {
   font-size: 22px;
   font-weight: 500;
   color: var(--blue-color);
+  
 }
+
+.logo_item_text {
+  background: linear-gradient(to right, #1f5fa8, #8e44ad, #e74c3c); /* Define gradient */
+  -webkit-background-clip: text; /* Use the background to clip the text */
+  -webkit-text-fill-color: transparent; /* Make the text fill transparent */
+  font-size: larger;
+}
+
+
 .navbar img {
   width: 35px;
   height: 35px;

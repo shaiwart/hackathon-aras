@@ -9,9 +9,10 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="logo_item">
         <i className="bx bx-menu" id="sidebarOpen"></i>
-        <img src={logoImg} alt="" />
-        <span>shaiwart.dev</span>
+        {/* <img src={logoImg} alt="" /> */}
+        <span className="logo_item_text">innovator.aras</span>
       </div>
+      
 
       <div className="search_bar">
         <input type="text" placeholder="Search" />

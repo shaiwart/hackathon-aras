@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import "./MainLayout.css";
+import Chatbot from "../Chatbot/Chatbot";
 
 const MainLayout = () => {
   return (
@@ -16,6 +17,8 @@ const MainLayout = () => {
           <Outlet />
         </div>
       </div>
+
+      <Chatbot />
     </div>
   );
 };
