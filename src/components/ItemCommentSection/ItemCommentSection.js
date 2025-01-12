@@ -4,13 +4,13 @@ import "./ItemCommentSection.css"
 const ChatComponent = ({ sg_item_id }) => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const API_URL = "http://localhost/InnovatorServer33/Server/ws/docshare/v1/sg_ItemComment?$expand=created_by_id";
-    const API_KEY = "APIKEY_SW5ub3ZhdG9yU29sdXRpb25zMzMub0tCZlJGR3B0QTVVdzU2UXdySmRjSTZNQU9CWDFEQ1Q";
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const API_URL = process.env.REACT_APP_API_URL_FOR_COMMENT_SECTION;
 
     // Fetch messages from API
     const fetchMessages = async () => {
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL}?$expand=created_by_id`, {
                 method: "GET",
                 headers: {
                     Authorization: `apikey ${API_KEY}`,
@@ -49,9 +49,9 @@ const ChatComponent = ({ sg_item_id }) => {
                 body: JSON.stringify(messageBody),
             });
 
-            // if (!response.ok) {
-            //     throw new Error('Failed to send message');
-            // }
+            if (!response.ok) {
+                throw new Error('Failed to send message');
+            }
 
             // Fetch the updated messages from the server after posting
             fetchMessages();

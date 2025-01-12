@@ -2,11 +2,14 @@
 import React, { useEffect } from "react";
 import "./Sidebar.css";
 import { useNavigate } from "react-router-dom";
+// import dotenv from "dotenv";
+// dotenv.config();
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const navigateDashboard = useNavigate();
-  const apikey = 'APIKEY_SW5ub3ZhdG9yU29sdXRpb25zMzMub0tCZlJGR3B0QTVVdzU2UXdySmRjSTZNQU9CWDFEQ1Q';
+  const API_KEY = process.env.REACT_APP_API_KEY;
+  const API_URL_BASE = process.env.REACT_APP_API_URL_BASE;
 
   const handleSidebarMenuClick = async (event) => {
     event.preventDefault();
@@ -20,11 +23,11 @@ const Sidebar = () => {
 
     try {
       const response = await fetch(
-        `http://localhost/InnovatorServer33/Server/ws/docshare/v1/${itemTypeName}`,
+        `${API_URL_BASE}/${itemTypeName}`,
         {
           method: "GET", // or "POST", "PUT", etc., depending on your API's requirements
           headers: {
-            "Authorization": `apikey ${apikey}`,
+            "Authorization": `apikey ${API_KEY}`,
           },
         }
       );
