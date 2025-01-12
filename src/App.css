@@ -377,9 +377,24 @@ body.dark {
   font-family: "Poppins", sans-serif;
   background-color: var(--white-color);
   color: var(--grey-color);
+  
 }
-.search-result-layout {
+.search-result-header {
+  display: flex;
+  justify-content: flex-end;
   height: 50px;
   border-bottom: 1px solid var(--grey-color);
   margin-bottom: 15px;
+}
+
+/* view toggle */
+.search-result-header > .toggle-view{
+  /* display: flex;
+  width: 85px;
+  border: 1px solid #bababa;
+  justify-content: space-between;
+  height: 36px; */
+}
+.search-result-header > .toggle-view > div > img{
+  width: 35px;
 }

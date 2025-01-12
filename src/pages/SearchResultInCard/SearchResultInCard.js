@@ -1,11 +1,11 @@
-// SearchResult.js
+// SearchResultInCard.js
 import React from "react"
 // import profileImg from '../../images/profile.jpg'
 import ItemCard from "../../components/ItemCard/ItemCard"
 import itemData from "../../data/partItemData"
 
 
-const SearchResult = () => {
+const SearchResultInCard = () => {
     return <div class="search-result">
         <div className="grid">
             {itemData.map((item, index) => {
@@ -27,4 +27,4 @@ const SearchResult = () => {
     </div>
 };
 
-export default SearchResult;
+export default SearchResultInCard;

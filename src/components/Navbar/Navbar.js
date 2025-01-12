@@ -1,8 +1,8 @@
 // Navbar.js
 import React from "react";
 import "./Navbar.css";
-import logoImg from '../../images/logo.png'
-import profileImg from '../../images/profile.jpg'
+import logoImg from '../../assets/images/logo.png'
+import profileImg from '../../assets/images/profile.jpg'
 
 const Navbar = () => {
   return (

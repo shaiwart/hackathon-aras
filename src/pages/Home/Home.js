@@ -1,7 +1,6 @@
 // Home.js
 import React from "react";
 import "./Home.css";
-import profileImg from '../../images/profile.jpg'
 import ItemCard from "../../components/ItemCard/ItemCard";
 import items from "../../data/items";
 import itemData from "../../data/partItemData";
