@@ -7,6 +7,7 @@ import SearchResultInCard from "./pages/SearchResultInCard/SearchResultInCard";
 import SearchResultLayout from "./pages/SearchResultLayout/SearchResultLayout";
 import DynamicTable from "./components/DynamicTable/DynamicTable";
 import Login from "./pages/login/Login";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 import "./App.css";
 // import "./App_copy.css";
@@ -18,9 +19,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<SearchResultLayout />} />
-          <Route path="table-view" element={<DynamicTable />} />
-          {/* <Route index element={<SearchResultInCard />} /> */}
+          <Route index element={<Dashboard />} />
+          <Route path="search-result" element={<SearchResultLayout />} />
         </Route>
       </Routes>
     </Router>
