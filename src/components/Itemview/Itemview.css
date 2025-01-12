@@ -23,7 +23,7 @@
 .itemview-content-right {
   width: 20%;
   box-shadow: 0 0 2px var(--grey-color-light);
-  height: 500px;
+  height: 569px;
 }
 
 /* start: Form css */
@@ -120,3 +120,25 @@ textarea {
 }
 /* end: Form css */
 
+/* start: social */
+.social {
+  display: inline-block;  /* Make it fit the text content */
+  padding: 8px 16px;  /* Add some padding for space around the text */
+  background: linear-gradient(45deg, #ff7a7a, #ff5e62, #9c4b83);  /* Gradient background */
+  border-radius: 25px;  /* Rounded corners */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  /* Add a subtle shadow for depth */
+  width: 100%;
+}
+
+.social span {
+  /* font-family: 'Arial', sans-serif; */
+  font-weight: 600;  /* Make the text bold */
+  color: white;  /* Make the text color white for contrast */
+  font-size: 16px;  /* Adjust the font size */
+  letter-spacing: 1px;  /* Slightly increase letter spacing for a cleaner look */
+  text-transform: uppercase;  /* Make the text uppercase */
+  display: block;  /* Make the span a block element (to help with centering) */
+  text-align: center;  /* Center the text inside the div */
+}
+
+/* end: social */

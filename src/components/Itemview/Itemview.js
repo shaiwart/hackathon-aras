@@ -1,6 +1,7 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import "./Itemview.css";
+import { useLocation } from "react-router-dom";
+import ChatComponent from "../ItemCommentSection/ItemCommentSection"
 
 const Itemview = () => {
   const location = useLocation();
@@ -54,7 +55,14 @@ const Itemview = () => {
             </div>
           </form>
         </div>
-        <div className="itemview-content-right">Chat/Comment</div>
+        <div className="itemview-content-right">
+          <div className="social">
+            <span>Social</span>
+          </div>
+          <div>
+            <ChatComponent sg_item_id={data.id}/>
+          </div>
+        </div>
       </div>
     </div>
   );

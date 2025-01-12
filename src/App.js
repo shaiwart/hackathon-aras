@@ -9,7 +9,6 @@ import DynamicTable from "./pages/SearchResultInTable/SearchResultInTable";
 import Login from "./pages/login/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Itemview from "./components/Itemview/Itemview"
-import ItemviewCopy from "./components/Itemview/ItemviewCopy"
 
 import "./App.css";
 // import "./App_copy.css";
