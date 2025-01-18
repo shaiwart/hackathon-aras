@@ -1,87 +1,142 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import md5 from "md5";
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-    const [authCode, setAuthCode] = useState(null);
-    const [accessToken, setAccessToken] = useState(null);
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        databasename: "",
+        username: "",
+        password: "",
+    });
 
-    const handleLogin = async () => {
-        // Redirect the user to the Auth URL for authorization
-        const authUrl = `http://localhost/InnovatorServer33/oauthserver/connect/authorize?` +
-            `response_type=code&` +
-            `client_id=InnovatorClient&` +
-            `redirect_uri=http://localhost/InnovatorServer33/Client/OAuth/PopupCallback&` +
-            `scope=openid Innovator offline_access&` +
-            `code_challenge_method=S256&` +
-            `code_challenge=${generateCodeChallenge()}`;
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
 
-        window.location.href = authUrl;
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
-    const generateCodeChallenge = () => {
-        // Ideally, you should generate a code verifier and hash it using SHA-256.
-        // Here, we're returning a dummy string for simplicity.
-        return "dummy_code_challenge";
-    };
+    const convertToMd5 = (password) => {
+        return md5(password);
+    }
 
-    const handleCallback = async () => {
-        // Extract the authorization code from the callback URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-        setAuthCode(code);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+        setSuccess("");
 
-        if (code) {
-            // Exchange the authorization code for an access token
-            const tokenUrl = 'http://localhost/InnovatorServer33/oauthserver/connect/token';
-            const data = {
-                grant_type: 'authorization_code',
-                code,
-                redirect_uri: 'http://localhost/InnovatorServer33/Client/OAuth/PopupCallback',
-                client_id: 'InnovatorClient',
-                // code_verifier: 'dummy_code_verifier', // This should match the code verifier used earlier
-            };
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        // myHeaders.append(
+        //   "Cookie",
+        //   "Aras.Server.Session=CfDJ8DHH7Jh0cgFHmpet2BwCCsrEs50%2BOMmM6WNGQbCEujtP1TdkEWtyT8ZUNK%2FtzD2bH9mTSEk4wehx41yIwBN7X6lPtnlUyxIqS9lQhzmNfHRh7PSV007UquLbsIsGUixfnpIkONc6DFaZcvDSMI5AdScbwozxuV%2F7FZfzlFBLQbw4"
+        // );
 
-            try {
-                const response = await fetch(tokenUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization': 'Basic ' + btoa('InnovatorClient:'),
-                    },
-                    body: new URLSearchParams(data).toString(),
-                });
+        const urlencoded = new URLSearchParams();
+        urlencoded.append("grant_type", "password");
+        urlencoded.append("scope", "Innovator");
+        urlencoded.append("client_id", "IOMApp");
+        urlencoded.append("username", formData.username);
+        urlencoded.append("password", convertToMd5(formData.password));
+        urlencoded.append("database", formData.databasename);
+        console.log(formData.databasename, formData.username, formData.password);
 
-                const result = await response.json();
-                setAccessToken(result.access_token);
-            } catch (error) {
-                console.error('Error exchanging code for token:', error);
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            credentials: "include",  // Add this
+            body: urlencoded,
+            //   redirect: "follow",
+        };
+
+        try {
+            //   const response = await fetch(
+            //     "http://localhost/InnovatorServer21/oauthserver/connect/token",
+            //     requestOptions
+            //   );
+
+            // forwarding request to proxy server
+            const response = await fetch(
+                "http://localhost:5000/api/oauthserver/connect/token",
+                requestOptions
+            );
+
+            if (!response.ok) {
+                throw new Error("Login failed. Please check your credentials.");
             }
+
+            const result = await response.json();
+            setSuccess("Login successful!");
+            console.log(result); 
+
+            // Save the token and expiry time in sessionStorage
+            const tokenExpiryTime = new Date().getTime() + result.expires_in * 1000; // Calculate expiry time in milliseconds
+            sessionStorage.setItem("access_token", result.access_token);
+            sessionStorage.setItem("token_expiry", tokenExpiryTime);
+
+            navigate("/");
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
         }
     };
-
-    React.useEffect(() => {
-        // Check if the page is loaded with an authorization code in the URL
-        if (window.location.search.includes('code=')) {
-            handleCallback();
-        }
-    }, []);
 
     return (
-        <div style={{ textAlign: 'center', marginTop: '50px' }}>
-            <h1>Login Page</h1>
-            {!authCode && (
-                <button onClick={handleLogin} style={{ padding: '10px 20px', fontSize: '16px' }}>
-                    Login with OAuth 2.0
-                </button>
-            )}
-
-            {authCode && !accessToken && <p>Exchanging authorization code for access token...</p>}
-
-            {accessToken && (
-                <div>
-                    <h2>Access Token</h2>
-                    <textarea value={accessToken} readOnly style={{ width: '100%', height: '100px' }} />
+        <div style={{ maxWidth: "400px", margin: "auto", padding: "20px" }}>
+            <h2>Login</h2>
+            <form onSubmit={handleSubmit}>
+                <div style={{ marginBottom: "15px" }}>
+                    <label htmlFor="databasename">Database Name:</label>
+                    <input
+                        type="text"
+                        id="databasename"
+                        name="databasename"
+                        value={formData.databasename}
+                        onChange={handleChange}
+                        required
+                        style={{ width: "100%", padding: "8px" }}
+                    />
                 </div>
-            )}
+                <div style={{ marginBottom: "15px" }}>
+                    <label htmlFor="username">Username:</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        required
+                        style={{ width: "100%", padding: "8px" }}
+                    />
+                </div>
+                <div style={{ marginBottom: "15px" }}>
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                        style={{ width: "100%", padding: "8px" }}
+                    />
+                </div>
+                <button
+                    type="submit"
+                    style={{ padding: "10px 20px", background: "#007BFF", color: "#fff", border: "none", cursor: "pointer" }}
+                    disabled={loading}
+                >
+                    {loading ? "Logging in..." : "Login"}
+                </button>
+            </form>
+
+            {error && <p style={{ color: "red", marginTop: "15px" }}>{error}</p>}
+            {success && <p style={{ color: "green", marginTop: "15px" }}>{success}</p>}
         </div>
     );
 };

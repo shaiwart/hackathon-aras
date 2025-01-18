@@ -22,26 +22,48 @@ const Sidebar = () => {
     }
 
     try {
-      const response = await fetch(
-        `${API_URL_BASE}/${itemTypeName}`,
-        {
-          method: "GET", // or "POST", "PUT", etc., depending on your API's requirements
-          headers: {
-            "Authorization": `apikey ${API_KEY}`,
-          },
-        }
-      );
+      // const response = await fetch(
+      //   `${API_URL_BASE}/${itemTypeName}`,
+      //   {
+      //     method: "GET", // or "POST", "PUT", etc., depending on your API's requirements
+      //     headers: {
+      //       "Authorization": `apikey ${API_KEY}`,
+      //     },
+      //   }
+      // );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
+      // if (!response.ok) {
+      //   throw new Error("Failed to fetch data");
+      // }
 
-      let data = await response.json();
-      console.log("data", data);
-      data = data.value;
+      // let data = await response.json();
+      // console.log("data", data);
+      // data = data.value;
+      const token = sessionStorage.getItem("access_token");
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+      // myHeaders.append("Cookie", "Aras.Server.Session=CfDJ8DHH7Jh0cgFHmpet2BwCCsrEs50%2BOMmM6WNGQbCEujtP1TdkEWtyT8ZUNK%2FtzD2bH9mTSEk4wehx41yIwBN7X6lPtnlUyxIqS9lQhzmNfHRh7PSV007UquLbsIsGUixfnpIkONc6DFaZcvDSMI5AdScbwozxuV%2F7FZfzlFBLQbw4");
+
+      const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow"
+      };
+
+      try {
+          const response = await fetch("http://localhost:5000/api/server/odata/Part?$select=item_number,id,classification,location,product_area,state, is_released&$top=100", requestOptions);
+          const result = await response.text(); 
+          const resultJson = JSON.parse(result);
+          console.log(resultJson);
+          // debugger;
+
+          navigate("/search-result", { state: { partData: resultJson.value } });
+      } catch (error) {
+          console.error(error);
+      };
 
       // Navigate to SearchResultLayout with the data
-      navigate("/search-result", { state: { partData: data } });
+      // navigate("/search-result", { state: { partData: data } });
     } catch (error) {
       console.error("Error fetching data:", error);
     }

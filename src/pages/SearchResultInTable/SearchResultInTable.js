@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import GridExample from '../../components/AgGrid/GridExample'
 
 function SearchResultInTable({ data }) {
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ function SearchResultInTable({ data }) {
   };
 
   return (
-    <Table striped bordered hover>
+    <>
+    {/* <Table striped bordered hover>
       <thead>
         <tr>
           <th>#</th>
@@ -41,7 +43,10 @@ function SearchResultInTable({ data }) {
           </tr>
         ))}
       </tbody>
-    </Table>
+    </Table> */}
+
+    <GridExample partData={data}/>
+    </>
   );
 }
 
